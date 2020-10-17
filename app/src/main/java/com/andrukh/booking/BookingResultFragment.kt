@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
-import com.andrukh.booking.databinding.ActivityBookingResultBinding
 import com.andrukh.booking.databinding.FragmentBookingResultBinding
 
 class BookingResultFragment : Fragment() {

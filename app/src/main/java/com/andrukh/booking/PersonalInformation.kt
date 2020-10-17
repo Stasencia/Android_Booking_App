@@ -22,7 +22,7 @@ class PersonalInformation : AppCompatActivity() {
     }
 
     private fun onButtonClick(view: View) {
-        val intent: Intent = Intent(baseContext, BookingResultActivity::class.java)
+        /*val intent: Intent = Intent(baseContext, BookingResultActivity::class.java)
         intent.putExtra("FirstName", binding.editTextFirstName.text.toString());
         intent.putExtra("LastName", binding.editTextLastName.text.toString());
         val lPurpose: Boolean = binding.radioButtonLeisure.isChecked
@@ -30,7 +30,7 @@ class PersonalInformation : AppCompatActivity() {
             "Purpose",
             (if (lPurpose) binding.radioButtonLeisure.text.toString() else binding.radioButtonBusiness.text.toString())
         );
-        view.context.startActivity(intent)
+        view.context.startActivity(intent)*/
     }
 
 
