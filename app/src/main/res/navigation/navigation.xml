@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/roomFragment">
+    <fragment
+        android:id="@+id/roomFragment"
+        android:name="com.andrukh.booking.RoomFragment"
+        android:label="@string/list_of_rooms"
+        tools:layout="@layout/fragment_item_list">
+        <action
+            android:id="@+id/action_roomFragment_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.andrukh.booking.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/termsAndConditionsFragment"
+        android:name="com.andrukh.booking.TermsAndConditionsFragment"
+        android:label="@string/terms_and_conditions"
+        tools:layout="@layout/fragment_terms_and_conditions" />
+    <fragment
+        android:id="@+id/personalInformationFragment"
+        android:name="com.andrukh.booking.PersonalInformationFragment"
+        android:label="@string/enter_personal_information"
+        tools:layout="@layout/fragment_personal_information">
+        <action
+            android:id="@+id/action_personalInformationFragment_to_bookingResultFragment"
+            app:destination="@id/bookingResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookingResultFragment"
+        android:name="com.andrukh.booking.BookingResultFragment"
+        android:label="@string/booking_info"
+        tools:layout="@layout/fragment_booking_result">
+        <argument
+            android:name="payerName"
+            app:argType="string" />
+        <argument
+            android:name="travelType"
+            app:argType="string" />
+    </fragment>
+
+</navigation>
