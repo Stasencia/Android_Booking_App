@@ -48,4 +48,7 @@ dependencies {
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
+
+    //Logging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
