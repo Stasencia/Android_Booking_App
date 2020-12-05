@@ -1,14 +1,15 @@
-package com.andrukh.booking
+package com.andrukh.booking.screens.personalInformation
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.andrukh.booking.R
 import com.andrukh.booking.databinding.FragmentPersonalInformationBinding
 import timber.log.Timber
 
@@ -35,7 +36,8 @@ class PersonalInformationFragment : Fragment() {
         )
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentPersonalInformationBinding>(
-            inflater, R.layout.fragment_personal_information, container, false
+            inflater,
+            R.layout.fragment_personal_information, container, false
         )
         binding.bookButton.setOnClickListener {
             val fullName: String =

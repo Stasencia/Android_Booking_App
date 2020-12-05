@@ -27,6 +27,14 @@ android {
         dataBinding true
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -46,9 +54,14 @@ dependencies {
     implementation "com.google.android.material:material:$version_material"
 
     // Navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
-    implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
+    //implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
+    //implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
 
     //Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // Lifecycles
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 }

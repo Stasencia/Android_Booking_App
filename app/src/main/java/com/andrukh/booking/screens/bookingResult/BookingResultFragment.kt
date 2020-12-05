@@ -1,12 +1,13 @@
-package com.andrukh.booking
+package com.andrukh.booking.screens.bookingResult
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import com.andrukh.booking.R
 import com.andrukh.booking.databinding.FragmentBookingResultBinding
 
 class BookingResultFragment : Fragment() {
@@ -17,9 +18,12 @@ class BookingResultFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentBookingResultBinding>(
-            inflater, R.layout.fragment_booking_result, container, false
+            inflater,
+            R.layout.fragment_booking_result, container, false
         )
-        args = BookingResultFragmentArgs.fromBundle(requireArguments())
+        args = BookingResultFragmentArgs.fromBundle(
+            requireArguments()
+        )
         binding.textPayer.text = args.payerName
         binding.textTravelType.text = args.travelType
 
@@ -46,7 +50,7 @@ class BookingResultFragment : Fragment() {
     }
 
     private fun getShareIntent(): Intent {
-        return ShareCompat.IntentBuilder.from(activity!!)
+        return ShareCompat.IntentBuilder.from(requireActivity())
             .setText(getString(R.string.shareBookingInfo, args.payerName, args.travelType))
             .setType("text/plain")
             .intent

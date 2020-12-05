@@ -1,13 +1,15 @@
-package com.andrukh.booking
+package com.andrukh.booking.screens.room
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import com.andrukh.booking.MyRoomRecyclerViewAdapter
+import com.andrukh.booking.R
 import com.andrukh.booking.dummy.DummyContent
 
 /**
@@ -38,7 +40,8 @@ class RoomFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyRoomRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter =
+                    MyRoomRecyclerViewAdapter(DummyContent.ITEMS)
             }
         }
         setHasOptionsMenu(true)

@@ -6,7 +6,7 @@
     app:startDestination="@id/roomFragment">
     <fragment
         android:id="@+id/roomFragment"
-        android:name="com.andrukh.booking.RoomFragment"
+        android:name="com.andrukh.booking.screens.room.RoomFragment"
         android:label="@string/list_of_rooms"
         tools:layout="@layout/fragment_item_list">
         <action
@@ -16,17 +16,17 @@
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.andrukh.booking.AboutFragment"
+        android:name="com.andrukh.booking.screens.about.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/termsAndConditionsFragment"
-        android:name="com.andrukh.booking.TermsAndConditionsFragment"
+        android:name="com.andrukh.booking.screens.termsAndConditions.TermsAndConditionsFragment"
         android:label="@string/terms_and_conditions"
         tools:layout="@layout/fragment_terms_and_conditions" />
     <fragment
         android:id="@+id/personalInformationFragment"
-        android:name="com.andrukh.booking.PersonalInformationFragment"
+        android:name="com.andrukh.booking.screens.personalInformation.PersonalInformationFragment"
         android:label="@string/enter_personal_information"
         tools:layout="@layout/fragment_personal_information">
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookingResultFragment"
-        android:name="com.andrukh.booking.BookingResultFragment"
+        android:name="com.andrukh.booking.screens.bookingResult.BookingResultFragment"
         android:label="@string/booking_info"
         tools:layout="@layout/fragment_booking_result">
         <argument

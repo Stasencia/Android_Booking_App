@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 
 import com.andrukh.booking.dummy.DummyContent.DummyItem
+import com.andrukh.booking.screens.room.RoomFragmentDirections
 import kotlinx.android.synthetic.main.fragment_item.view.*
 
 class MyRoomRecyclerViewAdapter(
