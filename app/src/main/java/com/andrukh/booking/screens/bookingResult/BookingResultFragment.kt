@@ -7,11 +7,16 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.andrukh.booking.R
 import com.andrukh.booking.databinding.FragmentBookingResultBinding
+import kotlinx.android.synthetic.main.fragment_booking_result.*
 
 class BookingResultFragment : Fragment() {
+
+    private lateinit var viewModel: BookingResultViewModel
     private lateinit var args: BookingResultFragmentArgs
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,11 +29,28 @@ class BookingResultFragment : Fragment() {
         args = BookingResultFragmentArgs.fromBundle(
             requireArguments()
         )
+
+        viewModel = ViewModelProvider(this).get(BookingResultViewModel::class.java)
+
         binding.textPayer.text = args.payerName
         binding.textTravelType.text = args.travelType
 
-        binding.resultNotifyButton.setOnCheckedChangeListener { _, checked ->
-            if (checked) {
+        // Sets up event listening to navigate the player when the game is finished
+        /*viewModel.isNotificationRequired.observe(viewLifecycleOwner, Observer { isRequired ->
+            if (isRequired) {
+                Toast.makeText(
+                    context,
+                    "You will be notified when the request is processed.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(context, "Notification cancelled.", Toast.LENGTH_SHORT).show()
+            }
+        })*/
+
+
+        binding.resultNotifyButton.setOnClickListener {
+            if (binding.resultNotifyButton.isChecked) {
                 Toast.makeText(
                     context,
                     "You will be notified when the request is processed.",
@@ -40,13 +62,20 @@ class BookingResultFragment : Fragment() {
         }
 
         binding.buttonCancel.setOnClickListener {
-            binding.layoutBookingDetails.visibility = View.GONE
-            binding.textHeader.text = "The request was cancelled"
+            viewModel.isBookingCanceled = true
+            if (viewModel.isBookingCanceled) {
+                cancelBooking()
+            }
         }
 
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun cancelBooking() {
+        layoutBookingDetails.visibility = View.GONE
+        textHeader.text = "The request was cancelled"
     }
 
     private fun getShareIntent(): Intent {
