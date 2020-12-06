@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.andrukh.booking.R
 import com.andrukh.booking.databinding.FragmentBookingResultBinding
 import kotlinx.android.synthetic.main.fragment_booking_result.*
@@ -17,7 +18,6 @@ class BookingResultFragment : Fragment() {
 
     private lateinit var viewModel: BookingResultViewModel
     private lateinit var viewModelFactory: BookingResultViewModelFactory
-    private lateinit var args: BookingResultFragmentArgs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,13 +28,17 @@ class BookingResultFragment : Fragment() {
             inflater,
             R.layout.fragment_booking_result, container, false
         )
-        args = BookingResultFragmentArgs.fromBundle(
-            requireArguments()
-        )
+
+        val args by navArgs<BookingResultFragmentArgs>()
 
         viewModelFactory = BookingResultViewModelFactory(args.payerName, args.travelType)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(BookingResultViewModel::class.java)
+
+        binding.bookingResultViewModel = viewModel
+
+        // Specify the current activity as the lifecycle owner of the binding. This is used so that the binding can observe LiveData updates
+        binding.setLifecycleOwner(this)
 
         // Sets up event listening to change the UI when booking is canceled
         viewModel.eventBookingCanceled.observe(viewLifecycleOwner, Observer { isCanceled ->
@@ -42,13 +46,6 @@ class BookingResultFragment : Fragment() {
                 this.cancelBookingUIChange()
             }
         })
-
-        binding.textPayer.text = viewModel.payerName.value
-        binding.textTravelType.text = viewModel.travelType.value
-
-        binding.buttonCancel.setOnClickListener {
-            viewModel.cancelBooking()
-        }
 
         binding.resultNotifyButton.setOnClickListener {
             if (binding.resultNotifyButton.isChecked) {
@@ -74,7 +71,13 @@ class BookingResultFragment : Fragment() {
 
     private fun getShareIntent(): Intent {
         return ShareCompat.IntentBuilder.from(requireActivity())
-            .setText(getString(R.string.shareBookingInfo, args.payerName, args.travelType))
+            .setText(
+                getString(
+                    R.string.shareBookingInfo,
+                    viewModel.payerName.value,
+                    viewModel.travelType.value
+                )
+            )
             .setType("text/plain")
             .intent
     }
