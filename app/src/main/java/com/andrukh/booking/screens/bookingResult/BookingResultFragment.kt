@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_booking_result.*
 class BookingResultFragment : Fragment() {
 
     private lateinit var viewModel: BookingResultViewModel
+    private lateinit var viewModelFactory: BookingResultViewModelFactory
     private lateinit var args: BookingResultFragmentArgs
 
     override fun onCreateView(
@@ -31,10 +32,9 @@ class BookingResultFragment : Fragment() {
             requireArguments()
         )
 
-        viewModel = ViewModelProvider(this).get(BookingResultViewModel::class.java)
-
-        binding.textPayer.text = args.payerName
-        binding.textTravelType.text = args.travelType
+        viewModelFactory = BookingResultViewModelFactory(args.payerName, args.travelType)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(BookingResultViewModel::class.java)
 
         // Sets up event listening to change the UI when booking is canceled
         viewModel.eventBookingCanceled.observe(viewLifecycleOwner, Observer { isCanceled ->
@@ -42,6 +42,9 @@ class BookingResultFragment : Fragment() {
                 this.cancelBookingUIChange()
             }
         })
+
+        binding.textPayer.text = viewModel.payerName.value
+        binding.textTravelType.text = viewModel.travelType.value
 
         binding.buttonCancel.setOnClickListener {
             viewModel.cancelBooking()
