@@ -7,22 +7,18 @@ import androidx.lifecycle.ViewModel
 class BookingResultViewModel : ViewModel() {
     private val payerName = ""
     private val isTravelTypeLeisure = true
-    var isBookingCanceled = false
 
-    private val _isNotificationRequired = MutableLiveData<Boolean>()
-    val isNotificationRequired: LiveData<Boolean>
-        get() = _isNotificationRequired
-
-    private fun changeIsBookingCanceled() {
-        isBookingCanceled = !isBookingCanceled
-    }
-
-    fun changeNotificationRequired(isNotificationRequired: Boolean) {
-        _isNotificationRequired.value = isNotificationRequired
-    }
+    // Event which triggers booking cancellation
+    private val _eventBookingCanceled = MutableLiveData<Boolean>()
+    val eventBookingCanceled: LiveData<Boolean>
+        get() = _eventBookingCanceled
 
     init {
-        _isNotificationRequired.value = false
+        _eventBookingCanceled.value = false
+    }
+
+    fun cancelBooking() {
+        _eventBookingCanceled.value = true
     }
 
 }

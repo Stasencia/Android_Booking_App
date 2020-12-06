@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.andrukh.booking.R
 import com.andrukh.booking.databinding.FragmentBookingResultBinding
@@ -35,19 +36,16 @@ class BookingResultFragment : Fragment() {
         binding.textPayer.text = args.payerName
         binding.textTravelType.text = args.travelType
 
-        // Sets up event listening to navigate the player when the game is finished
-        /*viewModel.isNotificationRequired.observe(viewLifecycleOwner, Observer { isRequired ->
-            if (isRequired) {
-                Toast.makeText(
-                    context,
-                    "You will be notified when the request is processed.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(context, "Notification cancelled.", Toast.LENGTH_SHORT).show()
+        // Sets up event listening to change the UI when booking is canceled
+        viewModel.eventBookingCanceled.observe(viewLifecycleOwner, Observer { isCanceled ->
+            if (isCanceled) {
+                this.cancelBookingUIChange()
             }
-        })*/
+        })
 
+        binding.buttonCancel.setOnClickListener {
+            viewModel.cancelBooking()
+        }
 
         binding.resultNotifyButton.setOnClickListener {
             if (binding.resultNotifyButton.isChecked) {
@@ -61,19 +59,12 @@ class BookingResultFragment : Fragment() {
             }
         }
 
-        binding.buttonCancel.setOnClickListener {
-            viewModel.isBookingCanceled = true
-            if (viewModel.isBookingCanceled) {
-                cancelBooking()
-            }
-        }
-
         setHasOptionsMenu(true)
 
         return binding.root
     }
 
-    private fun cancelBooking() {
+    private fun cancelBookingUIChange() {
         layoutBookingDetails.visibility = View.GONE
         textHeader.text = "The request was cancelled"
     }
