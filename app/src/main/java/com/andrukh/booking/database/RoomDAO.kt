@@ -10,7 +10,7 @@ import androidx.room.Update
 interface RoomDAO {
 
     @Insert
-    suspend fun insert(night: Room)
+    suspend fun insert(room: Room)
 
     /**
      * When updating a row with a value already set in a column,
