@@ -4,17 +4,17 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "room_table")
 data class Room(
     @PrimaryKey(autoGenerate = true)
-    var nightId: Long = 0L,
+    var roomId: Long = 0L,
 
-    @ColumnInfo(name = "start_time_milli")
-    val startTimeMilli: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "roomName")
+    var name: String = "",
 
-    @ColumnInfo(name = "end_time_milli")
-    var endTimeMilli: Long = startTimeMilli,
+    @ColumnInfo(name = "roomPrice")
+    var price: Double = 0.0,
 
-    @ColumnInfo(name = "quality_rating")
-    var sleepQuality: Int = -1
+    @ColumnInfo(name = "roomDescription")
+    var description: String = ""
 )
