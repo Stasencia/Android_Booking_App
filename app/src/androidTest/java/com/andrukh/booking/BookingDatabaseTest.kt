@@ -4,7 +4,7 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.andrukh.booking.database.BookingDatabase
-import com.andrukh.booking.database.RoomDAO
+import com.andrukh.booking.database.HotelRoomDAO
 import org.junit.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
@@ -21,7 +21,7 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class BookingDatabaseTest {
 
-    private lateinit var roomDAO: RoomDAO
+    private lateinit var roomDAO: HotelRoomDAO
     private lateinit var db: BookingDatabase
 
     @Before
@@ -45,7 +45,7 @@ class BookingDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun insertAndGetRoom() {
-        val room1 = com.andrukh.booking.database.Room()
+        val room1 = com.andrukh.booking.database.HotelRoom()
         roomDAO.insert(room1)
         room1.price = 5.0
         roomDAO.update(room1)

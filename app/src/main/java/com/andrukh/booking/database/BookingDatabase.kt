@@ -9,13 +9,17 @@ import androidx.room.RoomDatabase
  * A database that stores Booking app information.
  * And a global method to get access to the database.
  */
-@Database(entities = [com.andrukh.booking.database.Room::class], version = 1, exportSchema = false)
+@Database(
+    entities = [com.andrukh.booking.database.HotelRoom::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class BookingDatabase : RoomDatabase() {
 
     /**
      * Connects the database to the DAO.
      */
-    abstract val roomDAO: RoomDAO
+    abstract val roomDAO: HotelRoomDAO
 
     /**
      * Define a companion object, this allows us to add functions on the BookingDatabase class.

@@ -6,7 +6,7 @@
     app:startDestination="@id/roomFragment">
     <fragment
         android:id="@+id/roomFragment"
-        android:name="com.andrukh.booking.screens.room.RoomFragment"
+        android:name="com.andrukh.booking.screens.hotelRroom.RoomFragment"
         android:label="@string/list_of_rooms"
         tools:layout="@layout/fragment_item_list">
         <action

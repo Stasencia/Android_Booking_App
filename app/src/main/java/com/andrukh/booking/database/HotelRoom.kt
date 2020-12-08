@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "room_table")
-data class Room(
+data class HotelRoom(
     @PrimaryKey(autoGenerate = true)
     var roomId: Long = 0L,
 

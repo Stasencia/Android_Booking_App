@@ -1,6 +1,5 @@
 package com.andrukh.booking
 
-import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 
 import com.andrukh.booking.dummy.DummyContent.DummyItem
-import com.andrukh.booking.screens.room.RoomFragmentDirections
+import com.andrukh.booking.screens.hotelRroom.RoomFragmentDirections
 import kotlinx.android.synthetic.main.fragment_item.view.*
 
 class MyRoomRecyclerViewAdapter(

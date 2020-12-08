@@ -1,8 +1,10 @@
-package com.andrukh.booking.screens.room
+package com.andrukh.booking.screens.hotelRroom
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andrukh.booking.MyRoomRecyclerViewAdapter
 import com.andrukh.booking.R
+import com.andrukh.booking.database.BookingDatabase
+import com.andrukh.booking.databinding.FragmentRoomBinding
 import com.andrukh.booking.dummy.DummyContent
 
 /**
@@ -32,6 +36,27 @@ class RoomFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+
+        // Get a reference to the binding object and inflate the fragment views.
+        val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_sleep_tracker, container, false
+        )
+
+        val application = requireNotNull(this.activity).application
+
+        val dataSource = BookingDatabase.getInstance(application).roomDAO
+
+        val viewModelFactory = RoomViewModelFactory(dataSource, application)
+
+        val sleepTrackerViewModel =
+            ViewModelProvider(
+                this, viewModelFactory
+            ).get(RoomViewModel::class.java)
+
+        binding.sleepTrackerViewModel = sleepTrackerViewModel
+
+        // binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         // Set the adapter
         if (view is RecyclerView) {

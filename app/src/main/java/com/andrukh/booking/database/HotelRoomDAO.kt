@@ -7,10 +7,10 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface RoomDAO {
+interface HotelRoomDAO {
 
     @Insert
-    suspend fun insert(room: Room)
+    suspend fun insert(room: HotelRoom)
 
     /**
      * When updating a row with a value already set in a column,
@@ -19,7 +19,7 @@ interface RoomDAO {
      * @param room new value to write
      */
     @Update
-    suspend fun update(room: Room)
+    suspend fun update(room: HotelRoom)
 
     /**
      * Selects and returns the row that matches the supplied start time, which is our key.
@@ -27,7 +27,7 @@ interface RoomDAO {
      * @param key roomId to match
      */
     @Query("SELECT * from room_table WHERE roomId = :key")
-    suspend fun get(key: Long): Room?
+    suspend fun get(key: Long): HotelRoom?
 
     /**
      * Deletes all values from the table.
@@ -43,7 +43,7 @@ interface RoomDAO {
      * sorted by start time in descending order.
      */
     @Query("SELECT * FROM room_table ORDER BY roomId DESC")
-    fun getAllRooms(): LiveData<List<Room>>
+    fun getAllRooms(): LiveData<List<HotelRoom>>
 
 
 }
