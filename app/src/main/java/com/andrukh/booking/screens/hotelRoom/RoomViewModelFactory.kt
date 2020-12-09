@@ -1,4 +1,4 @@
-package com.andrukh.booking.screens.hotelRroom
+package com.andrukh.booking.screens.hotelRoom
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

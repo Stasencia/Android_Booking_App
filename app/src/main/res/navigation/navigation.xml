@@ -3,22 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/roomFragment">
+    app:startDestination="@id/hotelRoomFragment">
     <fragment
         android:id="@+id/roomFragment"
-        android:name="com.andrukh.booking.screens.hotelRroom.RoomFragment"
+        android:name="com.andrukh.booking.screens.hotelRoom.RoomFragment"
         android:label="@string/list_of_rooms"
-        tools:layout="@layout/fragment_item_list">
-        <action
-            android:id="@+id/action_roomFragment_to_personalInformationFragment"
-            app:destination="@id/personalInformationFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_item_list"></fragment>
 
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.andrukh.booking.screens.about.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/hotelRoomFragment"
+        android:name="com.andrukh.booking.screens.hotelRoom.RoomFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_hotel_room">
+        <action
+            android:id="@+id/action_roomFragment_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/termsAndConditionsFragment"
         android:name="com.andrukh.booking.screens.termsAndConditions.TermsAndConditionsFragment"

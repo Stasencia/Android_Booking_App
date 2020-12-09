@@ -1,20 +1,16 @@
-package com.andrukh.booking.screens.hotelRroom
+package com.andrukh.booking.screens.hotelRoom
 
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.andrukh.booking.MyRoomRecyclerViewAdapter
 import com.andrukh.booking.R
 import com.andrukh.booking.database.BookingDatabase
-import com.andrukh.booking.databinding.FragmentRoomBinding
-import com.andrukh.booking.dummy.DummyContent
+import com.andrukh.booking.databinding.FragmentHotelRoomBinding
 
 /**
  * A fragment representing a list of Items.
@@ -35,11 +31,9 @@ class RoomFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_sleep_tracker, container, false
+        val binding: FragmentHotelRoomBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_hotel_room, container, false
         )
 
         val application = requireNotNull(this.activity).application
@@ -48,29 +42,26 @@ class RoomFragment : Fragment() {
 
         val viewModelFactory = RoomViewModelFactory(dataSource, application)
 
-        val sleepTrackerViewModel =
+        val roomViewModel =
             ViewModelProvider(
                 this, viewModelFactory
             ).get(RoomViewModel::class.java)
 
-        binding.sleepTrackerViewModel = sleepTrackerViewModel
+        binding.roomViewModel = roomViewModel
 
         // binding.setLifecycleOwner(this)
         binding.lifecycleOwner = this
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter =
-                    MyRoomRecyclerViewAdapter(DummyContent.ITEMS)
+        val adapter = HotelRoomRecyclerViewAdapter()
+        binding.roomList.adapter = adapter
+
+        roomViewModel.rooms.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
             }
-        }
-        setHasOptionsMenu(true)
-        return view
+        })
+
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

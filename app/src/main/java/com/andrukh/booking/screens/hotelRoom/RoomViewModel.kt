@@ -1,4 +1,4 @@
-package com.andrukh.booking.screens.hotelRroom
+package com.andrukh.booking.screens.hotelRoom
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -10,7 +10,7 @@ class RoomViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val rooms = database.getAllRooms()
+    val rooms = database.getAllRooms()
 
     private suspend fun update(room: HotelRoom) {
         database.update(room)
