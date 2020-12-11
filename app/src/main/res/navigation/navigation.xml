@@ -8,7 +8,7 @@
         android:id="@+id/roomFragment"
         android:name="com.andrukh.booking.screens.hotelRoom.RoomFragment"
         android:label="@string/list_of_rooms"
-        tools:layout="@layout/fragment_item_list"></fragment>
+        tools:layout="@layout/fragment_item_list" />
 
     <fragment
         android:id="@+id/aboutFragment"
@@ -21,7 +21,7 @@
         android:label="@string/about"
         tools:layout="@layout/fragment_hotel_room">
         <action
-            android:id="@+id/action_roomFragment_to_personalInformationFragment"
+            android:id="@+id/action_hotelRoomFragment_to_personalInformationFragment"
             app:destination="@id/personalInformationFragment" />
     </fragment>
     <fragment
@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_personalInformationFragment_to_bookingResultFragment"
             app:destination="@id/bookingResultFragment" />
+        <argument
+            android:name="hotelRoomKey"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/bookingResultFragment"

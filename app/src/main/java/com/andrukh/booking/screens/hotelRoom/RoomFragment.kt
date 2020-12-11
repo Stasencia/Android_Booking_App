@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.andrukh.booking.R
 import com.andrukh.booking.database.BookingDatabase
@@ -52,12 +53,25 @@ class RoomFragment : Fragment() {
         // binding.setLifecycleOwner(this)
         binding.lifecycleOwner = this
 
-        val adapter = HotelRoomRecyclerViewAdapter()
+        val adapter = HotelRoomRecyclerViewAdapter(HotelRoomListener { roomId ->
+            roomViewModel.onHotelRoomSelectClicked(roomId)
+        })
         binding.roomList.adapter = adapter
 
         roomViewModel.rooms.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+            }
+        })
+
+        roomViewModel.navigateToPersonalInformation.observe(viewLifecycleOwner, Observer { room ->
+            room?.let {
+
+                this.findNavController().navigate(
+                    RoomFragmentDirections
+                        .actionHotelRoomFragmentToPersonalInformationFragment(room)
+                )
+                roomViewModel.onSleepDataQualityNavigated()
             }
         })
 

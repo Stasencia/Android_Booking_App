@@ -1,16 +1,14 @@
 package com.andrukh.booking.screens.hotelRoom
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.andrukh.booking.R
 import com.andrukh.booking.database.HotelRoom
+import com.andrukh.booking.databinding.ListItemHotelRoomBinding
 
-class HotelRoomRecyclerViewAdapter :
+class HotelRoomRecyclerViewAdapter(val clickListener: HotelRoomListener) :
     ListAdapter<HotelRoom, HotelRoomRecyclerViewAdapter.ViewHolder>(HotelRoomDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,27 +17,26 @@ class HotelRoomRecyclerViewAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+
+        holder.bind(clickListener, item)
     }
 
-    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val roomName: TextView = itemView.findViewById(R.id.room_name)
-        private val roomPrice: TextView = itemView.findViewById(R.id.room_price)
-        private val roomDescription: TextView = itemView.findViewById(R.id.room_description)
+    class ViewHolder private constructor(val binding: ListItemHotelRoomBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: HotelRoom) {
-            roomName.text = item.name
-            roomPrice.text = item.price.toString()
-            roomDescription.text = item.description
+        fun bind(clickListener: HotelRoomListener, item: HotelRoom) {
+            binding.hotelRoom = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater
-                    .inflate(R.layout.list_item_hotel_room, parent, false)
 
-                return ViewHolder(view)
+                val binding = ListItemHotelRoomBinding.inflate(layoutInflater, parent, false)
+
+                return ViewHolder(binding)
             }
         }
     }
@@ -59,4 +56,8 @@ class HotelRoomDiffCallback : DiffUtil.ItemCallback<HotelRoom>() {
     override fun areContentsTheSame(oldItem: HotelRoom, newItem: HotelRoom): Boolean {
         return oldItem == newItem
     }
+}
+
+class HotelRoomListener(val clickListener: (sleepId: Long) -> Unit) {
+    fun onClick(hotelRoom: HotelRoom) = clickListener(hotelRoom.roomId)
 }
