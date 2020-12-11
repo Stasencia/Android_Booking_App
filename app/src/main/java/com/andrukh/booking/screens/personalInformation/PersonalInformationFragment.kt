@@ -1,18 +1,27 @@
-package com.andrukh.booking
+package com.andrukh.booking.screens.personalInformation
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.andrukh.booking.R
 import com.andrukh.booking.databinding.FragmentPersonalInformationBinding
 import timber.log.Timber
 
 class PersonalInformationFragment : Fragment() {
+
+    private lateinit var viewModel: PersonalInformationViewModel
 
     @SuppressLint("BinaryOperationInTimber")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,23 +44,53 @@ class PersonalInformationFragment : Fragment() {
         )
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentPersonalInformationBinding>(
-            inflater, R.layout.fragment_personal_information, container, false
+            inflater,
+            R.layout.fragment_personal_information, container, false
         )
+
+        // Get the viewmodel
+        viewModel = ViewModelProvider(this).get(PersonalInformationViewModel::class.java)
+
         binding.bookButton.setOnClickListener {
-            val fullName: String =
-                binding.editTextFirstName.text.toString() + " " + binding.editTextLastName.text.toString()
-            val lPurpose: Boolean = binding.radioButtonLeisure.isChecked
-            val travelType: String =
-                if (lPurpose) binding.radioButtonLeisure.text.toString() else binding.radioButtonBusiness.text.toString()
+            viewModel.setPersonalInfo(
+                binding.editTextFirstName.text.toString(),
+                binding.editTextLastName.text.toString(),
+                binding.radioButtonLeisure.isChecked
+            )
             it.findNavController()
                 .navigate(
                     PersonalInformationFragmentDirections.actionPersonalInformationFragmentToBookingResultFragment(
-                        fullName,
-                        travelType
+                        viewModel.payerName.value ?: "",
+                        viewModel.travelType.value ?: ""
                     )
                 )
         }
+
+        // Buzzes when triggered with different buzz events
+        viewModel.eventBuzz.observe(viewLifecycleOwner, Observer { buzzType ->
+            if (buzzType != PersonalInformationViewModel.BuzzType.NO_BUZZ) {
+                buzz(buzzType.pattern)
+                viewModel.onBuzzComplete()
+            }
+        })
+
         return binding.root
+    }
+
+    /**
+     * Given a pattern, this method makes sure the device buzzes
+     */
+    private fun buzz(pattern: LongArray) {
+        val buzzer = activity?.getSystemService<Vibrator>()
+        buzzer?.let {
+            // Vibrate for 500 milliseconds
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                buzzer.vibrate(VibrationEffect.createWaveform(pattern, -1))
+            } else {
+                //deprecated in API 26
+                buzzer.vibrate(pattern, -1)
+            }
+        }
     }
 
     @SuppressLint("BinaryOperationInTimber")

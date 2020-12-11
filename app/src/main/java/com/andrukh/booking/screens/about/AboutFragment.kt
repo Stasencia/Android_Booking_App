@@ -1,10 +1,11 @@
-package com.andrukh.booking
+package com.andrukh.booking.screens.about
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.andrukh.booking.R
 
 class AboutFragment : Fragment() {
     override fun onCreateView(

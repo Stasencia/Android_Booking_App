@@ -3,39 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/roomFragment">
+    app:startDestination="@id/hotelRoomFragment">
     <fragment
         android:id="@+id/roomFragment"
-        android:name="com.andrukh.booking.RoomFragment"
+        android:name="com.andrukh.booking.screens.hotelRoom.RoomFragment"
         android:label="@string/list_of_rooms"
-        tools:layout="@layout/fragment_item_list">
-        <action
-            android:id="@+id/action_roomFragment_to_personalInformationFragment"
-            app:destination="@id/personalInformationFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_item_list" />
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.andrukh.booking.AboutFragment"
+        android:name="com.andrukh.booking.screens.about.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
     <fragment
+        android:id="@+id/hotelRoomFragment"
+        android:name="com.andrukh.booking.screens.hotelRoom.RoomFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_hotel_room">
+        <action
+            android:id="@+id/action_hotelRoomFragment_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/termsAndConditionsFragment"
-        android:name="com.andrukh.booking.TermsAndConditionsFragment"
+        android:name="com.andrukh.booking.screens.termsAndConditions.TermsAndConditionsFragment"
         android:label="@string/terms_and_conditions"
         tools:layout="@layout/fragment_terms_and_conditions" />
     <fragment
         android:id="@+id/personalInformationFragment"
-        android:name="com.andrukh.booking.PersonalInformationFragment"
+        android:name="com.andrukh.booking.screens.personalInformation.PersonalInformationFragment"
         android:label="@string/enter_personal_information"
         tools:layout="@layout/fragment_personal_information">
         <action
             android:id="@+id/action_personalInformationFragment_to_bookingResultFragment"
             app:destination="@id/bookingResultFragment" />
+        <argument
+            android:name="hotelRoomKey"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/bookingResultFragment"
-        android:name="com.andrukh.booking.BookingResultFragment"
+        android:name="com.andrukh.booking.screens.bookingResult.BookingResultFragment"
         android:label="@string/booking_info"
         tools:layout="@layout/fragment_booking_result">
         <argument
