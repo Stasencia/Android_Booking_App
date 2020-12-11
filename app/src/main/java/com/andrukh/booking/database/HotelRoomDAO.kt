@@ -42,7 +42,7 @@ interface HotelRoomDAO {
      *
      * sorted by start time in descending order.
      */
-    @Query("SELECT * FROM room_table ORDER BY roomId DESC")
+    @Query("SELECT * FROM room_table ORDER BY roomId")
     fun getAllRooms(): LiveData<List<HotelRoom>>
 
 

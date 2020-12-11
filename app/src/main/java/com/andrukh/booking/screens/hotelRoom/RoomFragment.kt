@@ -57,7 +57,7 @@ class RoomFragment : Fragment() {
 
         roomViewModel.rooms.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                adapter.submitList(it)
             }
         })
 

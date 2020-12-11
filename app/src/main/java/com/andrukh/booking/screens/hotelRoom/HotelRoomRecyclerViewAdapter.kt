@@ -4,27 +4,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andrukh.booking.R
 import com.andrukh.booking.database.HotelRoom
 
 class HotelRoomRecyclerViewAdapter :
-    RecyclerView.Adapter<HotelRoomRecyclerViewAdapter.ViewHolder>() {
-
-    var data = listOf<HotelRoom>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    ListAdapter<HotelRoom, HotelRoomRecyclerViewAdapter.ViewHolder>(HotelRoomDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    override fun getItemCount() = data.size
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.bind(item)
     }
 
@@ -49,5 +43,20 @@ class HotelRoomRecyclerViewAdapter :
             }
         }
     }
+}
 
+/**
+ * Callback for calculating the diff between two non-null items in a list.
+ *
+ * Used by ListAdapter to calculate the minumum number of changes between and old list and a new
+ * list that's been passed to `submitList`.
+ */
+class HotelRoomDiffCallback : DiffUtil.ItemCallback<HotelRoom>() {
+    override fun areItemsTheSame(oldItem: HotelRoom, newItem: HotelRoom): Boolean {
+        return oldItem.roomId == newItem.roomId
+    }
+
+    override fun areContentsTheSame(oldItem: HotelRoom, newItem: HotelRoom): Boolean {
+        return oldItem == newItem
+    }
 }
