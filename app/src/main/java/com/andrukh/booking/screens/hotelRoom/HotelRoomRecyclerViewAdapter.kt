@@ -17,27 +17,37 @@ class HotelRoomRecyclerViewAdapter :
             notifyDataSetChanged()
         }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.roomName.text = item.name
-        holder.roomPrice.text = item.price.toString()
-        holder.roomDescription.text = item.description
+        holder.bind(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater
-            .inflate(R.layout.list_item_hotel_room, parent, false)
+    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val roomName: TextView = itemView.findViewById(R.id.room_name)
+        private val roomPrice: TextView = itemView.findViewById(R.id.room_price)
+        private val roomDescription: TextView = itemView.findViewById(R.id.room_description)
 
-        return ViewHolder(view)
-    }
+        fun bind(item: HotelRoom) {
+            roomName.text = item.name
+            roomPrice.text = item.price.toString()
+            roomDescription.text = item.description
+        }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val roomName: TextView = itemView.findViewById(R.id.room_name)
-        val roomPrice: TextView = itemView.findViewById(R.id.room_price)
-        val roomDescription: TextView = itemView.findViewById(R.id.room_description)
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater
+                    .inflate(R.layout.list_item_hotel_room, parent, false)
+
+                return ViewHolder(view)
+            }
+        }
     }
 
 }
