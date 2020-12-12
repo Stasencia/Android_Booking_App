@@ -56,7 +56,7 @@ class RoomFragment : Fragment() {
         val adapter = HotelRoomRecyclerViewAdapter(HotelRoomListener { roomId ->
             roomViewModel.onHotelRoomSelectClicked(roomId)
         })
-        binding.roomList.adapter = adapter
+        //binding.roomList.adapter = adapter
 
         roomViewModel.rooms.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -71,7 +71,7 @@ class RoomFragment : Fragment() {
                     RoomFragmentDirections
                         .actionHotelRoomFragmentToPersonalInformationFragment(room)
                 )
-                roomViewModel.onSleepDataQualityNavigated()
+                roomViewModel.onHotelRoomSelectNavigated()
             }
         })
 
