@@ -1,8 +1,10 @@
 package com.andrukh.booking.network
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
@@ -10,11 +12,19 @@ private const val BASE_URL = "https://api.unsplash.com"
 private const val ACCESS_KEY = "qOKAOTtcN1cfTXDlEtmqSqLGGuWyC0sg34vTn1s9mKM"
 
 /**
+ * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
+ * full Kotlin compatibility.
+ */
+private val moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
+
+/**
  * Use the Retrofit builder to build a retrofit object using a Moshi converter with our Moshi
  * object pointing to the desired URL
  */
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
     .build()
 
@@ -29,7 +39,7 @@ interface ImageApiService {
      */
     @Headers("Authorization: Client-ID $ACCESS_KEY")
     @GET("photos")
-    fun getProperties(): Call<String>
+    fun getProperties(): Call<List<ImageProperty>>
 }
 
 /**
