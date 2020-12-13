@@ -4,13 +4,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.andrukh.booking.database.HotelRoom
 import com.andrukh.booking.database.HotelRoomDAO
 import com.andrukh.booking.network.ImageApi
-import com.andrukh.booking.network.ImageProperty
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
 class RoomViewModel(
     val database: HotelRoomDAO,
@@ -58,17 +56,13 @@ class RoomViewModel(
      * Room Images retrieved.
      */
     private fun getRoomImage() {
-        ImageApi.retrofitService.getProperties().enqueue(object : Callback<List<ImageProperty>> {
-            override fun onFailure(call: Call<List<ImageProperty>>, t: Throwable) {
-                _response.value = "Failure: " + t.message
+        viewModelScope.launch {
+            try {
+                var listResult = ImageApi.retrofitService.getProperties()
+                _response.value = "Success: ${listResult.size} Mars properties retrieved"
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
             }
-
-            override fun onResponse(
-                call: Call<List<ImageProperty>>,
-                response: Response<List<ImageProperty>>
-            ) {
-                _response.value = "Success: ${response.body()?.size} Image properties retrieved"
-            }
-        })
+        }
     }
 }

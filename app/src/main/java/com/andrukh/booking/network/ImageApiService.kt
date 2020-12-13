@@ -2,7 +2,6 @@ package com.andrukh.booking.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -33,13 +32,13 @@ private val retrofit = Retrofit.Builder()
  */
 interface ImageApiService {
     /**
-     * Returns a Retrofit callback that delivers a String
+     * Returns a Coroutine [List] of [ImageProperty] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "photos" endpoint will be requested with the GET
      * HTTP method
      */
     @Headers("Authorization: Client-ID $ACCESS_KEY")
     @GET("photos")
-    fun getProperties(): Call<List<ImageProperty>>
+    suspend fun getProperties(): List<ImageProperty>
 }
 
 /**
