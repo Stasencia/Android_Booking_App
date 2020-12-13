@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.andrukh.booking.R
-import com.andrukh.booking.database.BookingDatabase
+import com.andrukh.booking.database.getDatabase
 import com.andrukh.booking.databinding.FragmentHotelRoomBinding
 
 /**
@@ -39,7 +39,7 @@ class RoomFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = BookingDatabase.getInstance(application).roomDAO
+        val dataSource = getDatabase(application).hotelRoomDao
 
         val viewModelFactory = RoomViewModelFactory(dataSource, application)
 

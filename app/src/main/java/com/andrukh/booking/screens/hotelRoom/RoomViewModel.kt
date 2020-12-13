@@ -5,16 +5,25 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.andrukh.booking.database.HotelRoom
-import com.andrukh.booking.database.HotelRoomDAO
-import com.andrukh.booking.network.ImageApi
+import com.andrukh.booking.database.getDatabase
 import com.andrukh.booking.network.ImageProperty
+import com.andrukh.booking.repository.HotelRoomRepository
 import kotlinx.coroutines.launch
 
 class RoomViewModel(
-    val database: HotelRoomDAO,
     application: Application
 ) : AndroidViewModel(application) {
+
+    private val database = getDatabase(application)
+    private val hotelRoomRepository = HotelRoomRepository(database)
+
+    init {
+        viewModelScope.launch {
+            hotelRoomRepository.refreshPhotos()
+        }
+    }
+
+    val rooms = hotelRoomRepository.rooms
 
     // The internal MutableLiveData String that stores the most recent response status
     private val _status = MutableLiveData<String>()
@@ -35,26 +44,16 @@ class RoomViewModel(
     val properties: LiveData<List<ImageProperty>>
         get() = _properties
 
-    val rooms = database.getAllRooms()
-
     private val _navigateToPersonalInformation = MutableLiveData<Long>()
     val navigateToPersonalInformation
         get() = _navigateToPersonalInformation
 
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
-     */
+     *//*
     init {
         getRoomImage()
-    }
-
-    private suspend fun update(room: HotelRoom) {
-        database.update(room)
-    }
-
-    private suspend fun insert(room: HotelRoom) {
-        database.insert(room)
-    }
+    }*/
 
     fun onHotelRoomSelectClicked(id: Long) {
         _navigateToPersonalInformation.value = id
@@ -68,7 +67,7 @@ class RoomViewModel(
      * Sets the value of the response LiveData to the Images API status or the successful number of
      * Room Images retrieved.
      */
-    private fun getRoomImage() {
+    /*private fun getRoomImage() {
         viewModelScope.launch {
             try {
                 var listResult = ImageApi.retrofitService.getProperties()
@@ -80,5 +79,5 @@ class RoomViewModel(
                 _status.value = "Failure: ${e.message}"
             }
         }
-    }
+    }*/
 }

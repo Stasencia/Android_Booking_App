@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.andrukh.booking.database.HotelRoom
 import com.andrukh.booking.databinding.ListItemHotelRoomBinding
+import com.andrukh.booking.domain.HotelRoom
 
 class HotelRoomRecyclerViewAdapter(val clickListener: HotelRoomListener) :
     ListAdapter<HotelRoom, HotelRoomRecyclerViewAdapter.ViewHolder>(HotelRoomDiffCallback()) {

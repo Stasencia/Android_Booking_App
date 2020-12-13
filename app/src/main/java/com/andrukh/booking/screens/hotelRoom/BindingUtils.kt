@@ -3,7 +3,7 @@ package com.andrukh.booking.screens.hotelRoom
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.andrukh.booking.convertPriceToString
-import com.andrukh.booking.database.HotelRoom
+import com.andrukh.booking.domain.HotelRoom
 
 @BindingAdapter("hotelRoomPriceString")
 fun TextView.setHotelRoomPriceString(item: HotelRoom?) {
