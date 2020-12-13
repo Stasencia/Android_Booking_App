@@ -7,6 +7,10 @@
     <data>
 
         <variable
+            name="imageProperty"
+            type="com.andrukh.booking.network.ImageProperty" />
+
+        <variable
             name="hotelRoom"
             type="com.andrukh.booking.database.HotelRoom" />
 
@@ -27,7 +31,8 @@
             android:layout_height="150sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/room_1">
+            tools:srcCompat="@drawable/room_1"
+            app:imageUrl="@{imageProperty.imgSrcUrl.small}">
 
         </ImageView>
 

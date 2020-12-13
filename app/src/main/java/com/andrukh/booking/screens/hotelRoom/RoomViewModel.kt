@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.andrukh.booking.database.HotelRoom
 import com.andrukh.booking.database.HotelRoomDAO
 import com.andrukh.booking.network.ImageApi
+import com.andrukh.booking.network.ImageProperty
 import kotlinx.coroutines.launch
 
 class RoomViewModel(
@@ -15,12 +16,24 @@ class RoomViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    // The internal MutableLiveData String that stores the most recent response
-    private val _response = MutableLiveData<String>()
+    // The internal MutableLiveData String that stores the most recent response status
+    private val _status = MutableLiveData<String>()
 
-    // The external immutable LiveData for the response String
-    val response: LiveData<String>
-        get() = _response
+    // The external immutable LiveData for the status String
+    val status: LiveData<String>
+        get() = _status
+
+    // Internally, we use a MutableLiveData, because we will be updating the MarsProperty with
+    // new values
+    private val _property = MutableLiveData<ImageProperty>()
+
+    // Internally, we use a MutableLiveData, because we will be updating the List of ImageProperty
+    // with new values
+    private val _properties = MutableLiveData<List<ImageProperty>>()
+
+    // The external LiveData interface to the property is immutable, so only this class can modify
+    val properties: LiveData<List<ImageProperty>>
+        get() = _properties
 
     val rooms = database.getAllRooms()
 
@@ -59,9 +72,12 @@ class RoomViewModel(
         viewModelScope.launch {
             try {
                 var listResult = ImageApi.retrofitService.getProperties()
-                _response.value = "Success: ${listResult.size} Mars properties retrieved"
+                _status.value = "Success: ${listResult.size} Mars properties retrieved"
+                if (listResult.size > 0) {
+                    _properties.value = listResult
+                }
             } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
+                _status.value = "Failure: ${e.message}"
             }
         }
     }
