@@ -71,7 +71,7 @@ class RoomFragment : Fragment() {
                     RoomFragmentDirections
                         .actionHotelRoomFragmentToPersonalInformationFragment(room)
                 )
-                roomViewModel.onSleepDataQualityNavigated()
+                roomViewModel.onHotelRoomSelectNavigated()
             }
         })
 
