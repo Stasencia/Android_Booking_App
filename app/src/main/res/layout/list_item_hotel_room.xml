@@ -38,11 +38,10 @@
 
         <TextView
             android:id="@+id/room_name"
+            style="@style/TextAppearance.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
-            android:fontFamily="@font/lobster_two"
-            style="@style/TextAppearance.Title"
             app:hotelRoomNameString="@{hotelRoom}"
             app:layout_constraintStart_toEndOf="@+id/room_image"
             app:layout_constraintTop_toTopOf="@+id/room_image"
@@ -50,12 +49,11 @@
 
         <TextView
             android:id="@+id/room_price"
+            style="@style/TextAppearance.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
-            android:fontFamily="@font/lobster_two"
             android:textColor="@android:color/black"
-            android:textSize="22sp"
             app:hotelRoomPriceString="@{hotelRoom}"
             app:layout_constraintStart_toEndOf="@+id/room_image"
             app:layout_constraintTop_toBottomOf="@+id/room_name"
@@ -66,9 +64,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
-            android:fontFamily="@font/roboto"
             android:textColor="#555555"
-            android:textSize="16sp"
             app:hotelRoomDescriptionString="@{hotelRoom}"
             app:layout_constraintBottom_toBottomOf="@+id/room_image"
             app:layout_constraintEnd_toEndOf="parent"
