@@ -76,7 +76,7 @@
             app:layout_constraintTop_toBottomOf="@+id/room_price"
             tools:text="This room has one double bed, personal bathroom and a wonderful city view. It also has a flat screen TV and a free WiFi access - perfect choice for you." />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/room_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,6 +86,7 @@
             android:text="Select"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/room_image" />
+            app:layout_constraintTop_toBottomOf="@+id/room_image"
+            app:icon="@android:drawable/ic_media_play" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
