@@ -4,8 +4,6 @@
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-        android:background="?colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

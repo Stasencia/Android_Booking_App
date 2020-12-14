@@ -23,7 +23,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10sp">
+        android:padding="@dimen/spacing_normal">
 
         <ImageView
             android:id="@+id/room_image"
@@ -75,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/room_image"
             app:layout_constraintTop_toBottomOf="@+id/room_price"
-            tools:text="This room has one double bed, personal bathroom and a wonderful city view. It also has a flat screen TV and a free WiFi access - perfect choice for you." />
+            tools:text="This room has one double bed, personal bathroom and a wonderful city view. It also has a flat screen TV and a free WiFi access." />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/room_button"
