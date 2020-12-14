@@ -52,4 +52,14 @@ Andrukh Booking Android App reserves the right to monitor all Comments and to re
     <string name="booking_info">Booking Info</string>
     <string name="list_of_rooms">List of Rooms</string>
     <string name="price">%1$.0f$</string>
+    <string name="hotel_room_image">Hotel Room Image</string>
+    <string name="hotel_room_select_button">Hotel Room Select button</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="credit_card_number">Credit card number</string>
+    <string name="book_text">Book</string>
+    <string name="notify_me_when_the_request_is_processed">Notify me when the request is processed</string>
+    <string name="is_notification_required_button">Is notification required button</string>
+    <string name="cancel_this_booking_request">Cancel this booking request</string>
 </resources>
