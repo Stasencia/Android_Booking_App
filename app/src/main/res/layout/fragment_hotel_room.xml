@@ -19,7 +19,6 @@
             android:id="@+id/room_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10sp"
             tools:listitem="@layout/list_item_hotel_room"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"

@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10sp">
+        android:padding="@dimen/spacing_normal">
 
         <TextView
             android:id="@+id/textHeader"
@@ -24,7 +24,7 @@
             android:gravity="center"
             android:text="Thank you! \nYour request was sent for processing"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textAppearance="?textAppearanceHeadline6" />
 
         <LinearLayout
             android:id="@+id/layoutBookingDetails"
@@ -104,8 +104,10 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Notify me when the request is processed"
-                android:textOff="Notify me when the request is processed"
+                android:textColor="@color/primaryTextColor"
+                android:hint="@string/is_notification_required_button"
+                android:accessibilityLiveRegion="polite"
+                android:textOff="@string/notify_me_when_the_request_is_processed"
                 android:textOn="Don't notify me when the request is processed" />
 
             <Button
@@ -114,7 +116,8 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@android:drawable/ic_delete"
                 android:onClick="@{() -> bookingResultViewModel.cancelBooking()}"
-                android:text="Cancel this booking request"
+                android:hint="@string/cancel_this_booking_request"
+                android:text="@string/cancel_this_booking_request"
                 android:textColor="@android:color/background_light"
                 android:textColorHint="@android:color/holo_red_light" />
         </LinearLayout>
